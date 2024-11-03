@@ -1,0 +1,74 @@
+class EBook:
+    """ Class representing a system that has EBooks """
+
+    def __init__(self, title, author, publication_date, genre, price):
+        self._title = title  # Title of the eBook
+        self._author = author  # Author of the eBook
+        self._publication_date = publication_date  # Publication date of eBook
+        self._genre = genre  # Genre of the eBook
+        self._price = price  # Price of the eBook
+
+    # Setters and getters 
+
+    def set_title(self, title):
+        self._title = title  # Seter for title
+
+    def get_title(self):
+        return self._title  # Geter for title
+
+    def set_author(self, author):
+        self._author = author  # Seter for author
+
+    def get_author(self):
+        return self._author  # geter for author
+
+    def set_publication_date(self, publication_date):
+        self._publication_date = publication_date  # Seter for publication date
+
+    def get_publication_date(self):
+        return self._publication_date  # Geter for publication date
+
+    def set_genre(self, genre):
+        self._genre = genre  # Seter for genre
+
+    def get_genre(self):
+        return self._genre  # Geter for genre
+
+    def set_price(self, price):
+        self._price = price  # Seter for price
+
+    def get_price(self):
+        return self._price  # Geter for price
+
+    def get_details(self):
+        """ Returning the details of the EBook """
+        return f"{self._title} by {self._author}, Genre: {self._genre}, Price: ${self._price}"
+
+    def update_price(self, new_price):
+        """ Updating the price of the EBook """
+        self._price = new_price
+
+    def __str__(self):
+        """ Returning a string representation of the EBook """
+        return f"EBook: {self._title}, Author: {self._author}, Price: ${self._price}"
+
+# Creating the objects of the EBook class
+ebook = EBook("Food", "Ahmed Alblooshi", "2023-01-05", "Life", 15.50)
+
+# Using setter to update details
+ebook.set_price(14.99)  # Update the price
+ebook.set_genre("Cooking")  # Update the genre
+
+# Printing details using the getter methods
+print("Title:", ebook.get_title())
+print("Author:", ebook.get_author())
+print("Publication Date:", ebook.get_publication_date())
+print("Genre:", ebook.get_genre())
+print("Price:", ebook.get_price())
+
+# Printing eBook details 
+print(ebook.get_details())
+
+# Printing string representation of the eBook
+print(ebook)
+
