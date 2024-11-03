@@ -1,0 +1,86 @@
+class Discount:
+    """ Class representing a discount in the system """
+
+    def __init__(self, discount_id, discount_type, percentage, start_date, end_date):
+        self._discount_id = discount_id  # ID of the discount
+        self._discount_type = discount_type  # Type of discount where there are 2 given
+        self._percentage = percentage  # Discount percentage
+        self._start_date = start_date  # Start date of the discount
+        self._end_date = end_date  # End date of the discount
+
+    # Setters and getters
+
+    def set_discount_id(self, discount_id):
+        self._discount_id = discount_id  # Setter for discount ID
+
+    def get_discount_id(self):
+        return self._discount_id  # Getter for discount ID
+
+    def set_discount_type(self, discount_type):
+        self._discount_type = discount_type  # Setter for discount type
+
+    def get_discount_type(self):
+        return self._discount_type  # Getter for discount type
+
+    def set_percentage(self, percentage):
+        self._percentage = percentage  # Setter for discount percentage
+
+    def get_percentage(self):
+        return self._percentage  # Getter for discount percentage
+
+    def set_start_date(self, start_date):
+        self._start_date = start_date  # Setter for start date
+
+    def get_start_date(self):
+        return self._start_date  # Getter for start date
+
+    def set_end_date(self, end_date):
+        self._end_date = end_date  # Setter for end date
+
+    def get_end_date(self):
+        return self._end_date  # Getter for end date
+
+    def apply_discount(self, order):
+        """ Applies discount to an order if it is valid and gives the discounted total """
+        if self.validate_discount():
+            discount_amount = order.get_total_amount() * (self._percentage / 100)
+            return order.get_total_amount() - discount_amount
+        return order.get_total_amount()
+
+    def validate_discount(self):
+        """ Checks if the discount is valid based on the start and end dates """
+        from datetime import datetime
+        current_date = datetime.now().date()
+        return self._start_date <= current_date <= self._end_date
+
+    def __str__(self):
+        """ Returning a string representation of the Discount """
+        return f"Discount ID: {self._discount_id}, Type: {self._discount_type}, Percentage: {self._percentage}%"
+
+# Creating object and an instance of the Discount class
+from datetime import date
+discount = Discount(554, "Loyalty", 10, date(2024, 11, 1), date(2024, 11, 30))
+
+# Creating an instance of Order to show the discount 
+order = Order(554, "2024-11-01")
+ebook1 = EBook("Food", "Ahmed Alblooshi", "2022-01-05", "Cooking", 14.99)
+ebook2 = EBook("Furniture", "Meera Ahmed", "2023-05-20", "Home", 18.50)
+order.add_ebook(ebook1)
+order.add_ebook(ebook2)
+
+# Printing discount details
+print("Discount ID:", discount.get_discount_id())
+print("Discount Type:", discount.get_discount_type())
+print("Percentage:", discount.get_percentage())
+print("Start Date:", discount.get_start_date())
+print("End Date:", discount.get_end_date())
+
+# Applying discount to the order if its valid
+if discount.validate_discount():
+    discounted_total = discount.apply_discount(order)
+    print("Discount applied! Total after discount:", discounted_total)
+else:
+    print("Discount not valid. Total without discount:", order.get_total_amount())
+
+# Printing string representation of the Discount
+print(discount)
