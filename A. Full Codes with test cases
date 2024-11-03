@@ -1,0 +1,378 @@
+from datetime import date, datetime
+
+class EBook:
+    """ Class representing a system that has EBooks """
+
+    def __init__(self, title, author, publication_date, genre, price):
+        self._title = title  # Title of the eBook
+        self._author = author  # Author of the eBook
+        self._publication_date = publication_date  # Publication date of eBook
+        self._genre = genre  # Genre of the eBook
+        self._price = price  # Price of the eBook
+
+    # Setters and getters 
+
+    def set_title(self, title):
+        self._title = title  # Seter for title
+
+    def get_title(self):
+        return self._title  # Geter for title
+
+    def set_author(self, author):
+        self._author = author  # Seter for author
+
+    def get_author(self):
+        return self._author  # geter for author
+
+    def set_publication_date(self, publication_date):
+        self._publication_date = publication_date  # Seter for publication date
+
+    def get_publication_date(self):
+        return self._publication_date  # Geter for publication date
+
+    def set_genre(self, genre):
+        self._genre = genre  # Seter for genre
+
+    def get_genre(self):
+        return self._genre  # Geter for genre
+
+    def set_price(self, price):
+        self._price = price  # Seter for price
+
+    def get_price(self):
+        return self._price  # Geter for price
+
+    def get_details(self):
+        """ Returning the details of the EBook """
+        return f"{self._title} by {self._author}, Genre: {self._genre}, Price: ${self._price}"
+
+    def update_price(self, new_price):
+        """ Updating the price of the EBook """
+        self._price = new_price
+
+    def __str__(self):
+        """ Returning a string representation of the EBook """
+        return f"EBook: {self._title}, Author: {self._author}, Price: ${self._price}"
+
+
+class Customer:
+    """ Class representing a customer in the system """
+
+    def __init__(self, name, email, phone_number, address, loyalty_status):
+        self._name = name  # Name of the customer
+        self._email = email  # Email of the customer
+        self._phone_number = phone_number  # Phone number of the customer
+        self._address = address  # Address of the customer
+        self._loyalty_status = loyalty_status  # Loyalty status of the customer
+
+    # Setters and getters
+
+    def set_name(self, name):
+        self._name = name  # Setter for name
+
+    def get_name(self):
+        return self._name  # Getter for name
+
+    def set_email(self, email):
+        self._email = email  # Setter for email
+
+    def get_email(self):
+        return self._email  # Getter for email
+
+    def set_phone_number(self, phone_number):
+        self._phone_number = phone_number  # Setter for phone number
+
+    def get_phone_number(self):
+        return self._phone_number  # Getter for phone number
+
+    def set_address(self, address):
+        self._address = address  # Setter for address
+
+    def get_address(self):
+        return self._address  # Getter for address
+
+    def set_loyalty_status(self, loyalty_status):
+        self._loyalty_status = loyalty_status  # Setter for loyalty status
+
+    def get_loyalty_status(self):
+        return self._loyalty_status  # Getter for loyalty status
+
+    def create_account(self):
+        """ for account creation """
+        return f"Account created for {self._name}."
+
+    def purchase_ebook(self, ebook):
+        """ for purchasing an eBook."""
+        return f"{self._name} purchased the eBook '{ebook.get_title()}'."
+
+    def __str__(self):
+        """ for returning a string representation of the Customer """
+        return f"Customer: {self._name}, Email: {self._email}, Loyalty Status: {self._loyalty_status}"
+
+
+class ShoppingCart:
+    """ Class representing a shopping cart in the system """
+
+    def __init__(self, cart_id, creation_date):
+        self._cart_id = cart_id  # ID of the shopping cart
+        self._items = []  # List of EBooks in the cart
+        self._total_quantity = 0  # Total number of Ebooks in the cart
+        self._total_price = 0.0  # Total price of Ebooks in the cart
+        self._creation_date = creation_date  # Creation date of cart
+
+    # Setters and getters
+
+    def set_cart_id(self, cart_id):
+        self._cart_id = cart_id  # Setter for cart ID
+
+    def get_cart_id(self):
+        return self._cart_id  # Getter for cart ID
+
+    def set_creation_date(self, creation_date):
+        self._creation_date = creation_date  # Setter for creation date
+
+    def get_creation_date(self):
+        return self._creation_date  # Getter for creation date
+
+    def add_item(self, ebook):
+        """ Adds an EBook to the shopping cart """
+        self._items.append(ebook)
+        self._total_quantity += 1
+        self._total_price += ebook.get_price()
+
+    def remove_item(self, ebook):
+        """ Removes an EBook from the shopping cart if there is any """
+        if ebook in self._items:
+            self._items.remove(ebook)
+            self._total_quantity -= 1
+            self._total_price -= ebook.get_price()
+
+    def get_total_quantity(self):
+        """ Returns the total number of EBooks in the cart """
+        return self._total_quantity
+
+    def get_total_price(self):
+        """ Returns the total price of EBooks in the cart """
+        return self._total_price
+
+    def get_items(self):
+        """ Returns the list of EBooks in the cart """
+        return [ebook.get_title() for ebook in self._items]
+
+    def __str__(self):
+        """ Returning a string representation of the ShoppingCart """
+        return f"ShoppingCart ID: {self._cart_id}, Total Quantity: {self._total_quantity}, Total Price: ${self._total_price}"
+
+
+class Order:
+    """ Class representing an order in the system """
+
+    def __init__(self, order_id, date):
+        self._order_id = order_id  # ID of the order
+        self._date = date  # Date of the order
+        self._ebooks = []  # List of EBook objects in the order
+        self._total_amount = 0.0  # Total amount for the order
+        self._status = "Pending"  # Status of the order
+
+    # Setters and getters
+
+    def set_order_id(self, order_id):
+        self._order_id = order_id  # Setter for order ID
+
+    def get_order_id(self):
+        return self._order_id  # Getter for order ID
+
+    def set_date(self, date):
+        self._date = date  # Setter for date
+
+    def get_date(self):
+        return self._date  # Getter for date
+
+    def set_status(self, status):
+        self._status = status  # Setter for status
+
+    def get_status(self):
+        return self._status  # Getter for status
+
+    def add_ebook(self, ebook):
+        """Adds an EBook object to the order and updates total amount"""
+        self._ebooks.append(ebook)
+        self._total_amount += ebook.get_price()
+
+    def get_total_amount(self):
+        """Returns the total amount of the order"""
+        return self._total_amount
+
+    def get_ebooks(self):
+        """Returns the list of EBook objects in the order"""
+        return self._ebooks
+
+    def generate_invoice(self):
+        """Generates a basic invoice for the order"""
+        invoice_details = f"Order ID: {self._order_id}\nDate: {self._date}\nTotal Amount: ${self._total_amount}\nStatus: {self._status}\nItems:\n"
+        for ebook in self._ebooks:
+            invoice_details += f"- {ebook.get_title()} (${ebook.get_price()})\n"
+        return invoice_details
+
+    def complete_order(self):
+        """Marks the order as completed"""
+        self._status = "Completed"
+
+    def __str__(self):
+        """Returning a string representation of the Order"""
+        return f"Order ID: {self._order_id}, Date: {self._date}, Total Amount: ${self._total_amount}, Status: {self._status}"
+
+
+class Discount:
+    """ Class representing a discount in the system """
+
+    def __init__(self, discount_id, discount_type, percentage, start_date, end_date):
+        self._discount_id = discount_id  # ID of the discount
+        self._discount_type = discount_type  # Type of discount where there are 2 given
+        self._percentage = percentage  # Discount percentage
+        self._start_date = start_date  # Start date of the discount
+        self._end_date = end_date  # End date of the discount
+
+    # Setters and getters
+
+    def set_discount_id(self, discount_id):
+        self._discount_id = discount_id  # Setter for discount ID
+
+    def get_discount_id(self):
+        return self._discount_id  # Getter for discount ID
+
+    def set_discount_type(self, discount_type):
+        self._discount_type = discount_type  # Setter for discount type
+
+    def get_discount_type(self):
+        return self._discount_type  # Getter for discount type
+
+    def set_percentage(self, percentage):
+        self._percentage = percentage  # Setter for discount percentage
+
+    def get_percentage(self):
+        return self._percentage  # Getter for discount percentage
+
+    def set_start_date(self, start_date):
+        self._start_date = start_date  # Setter for start date
+
+    def get_start_date(self):
+        return self._start_date  # Getter for start date
+
+    def set_end_date(self, end_date):
+        self._end_date = end_date  # Setter for end date
+
+    def get_end_date(self):
+        return self._end_date  # Getter for end date
+
+    def apply_discount(self, order):
+        """ Applies discount to an order if it is valid and gives the discounted total """
+        if self.validate_discount():
+            discount_amount = order.get_total_amount() * (self._percentage / 100)
+            return order.get_total_amount() - discount_amount
+        return order.get_total_amount()
+
+    def validate_discount(self):
+        """ Checks if the discount is valid based on the start and end dates """
+        current_date = datetime.now().date()
+        return self._start_date <= current_date <= self._end_date
+
+    def __str__(self):
+        """ Returning a string representation of the Discount """
+        return f"Discount ID: {self._discount_id}, Type: {self._discount_type}, Percentage: {self._percentage}%"
+
+
+class Invoice:
+    """ Class representing an invoice in the system """
+
+    def __init__(self, invoice_id, order):
+        self._invoice_id = invoice_id  # ID of the invoice
+        self._order = order  # invoice for the order
+        self._itemized_prices = [ebook.get_price() for ebook in order.get_ebooks()]  # Prices of each eBook in the order
+        self._vat = 0.05  # VAT rate 8%
+        self._final_total = self.calculate_vat() + order.get_total_amount()  # Final total with VAT
+
+    # Setters and getters
+
+    def set_invoice_id(self, invoice_id):
+        self._invoice_id = invoice_id  # Setter for invoice ID
+
+    def get_invoice_id(self):
+        return self._invoice_id  # Getter for invoice ID
+
+    def set_order(self, order):
+        self._order = order  # Setter for order
+
+    def get_order(self):
+        return self._order  # Getter for order
+
+    def calculate_vat(self):
+        """Calculates the VAT amount based on the orders total amount"""
+        return self._order.get_total_amount() * self._vat
+
+    def generate_invoice(self):
+        """creates the detailed invoice with all the information"""
+        invoice_details = f"Invoice ID: {self._invoice_id}\nOrder ID: {self._order.get_order_id()}\nDate: {self._order.get_date()}\n"
+        invoice_details += f"Items:\n"
+        for ebook in self._order.get_ebooks():
+            invoice_details += f"- {ebook.get_title()} (${ebook.get_price()})\n"
+        invoice_details += f"Subtotal: ${self._order.get_total_amount():.2f}\n"
+        invoice_details += f"VAT (5%): ${self.calculate_vat():.2f}\n"
+        invoice_details += f"Total Amount: ${self._final_total:.2f}\n"
+        return invoice_details
+
+    def __str__(self):
+        """Returning a string representation of the Invoice"""
+        return f"Invoice ID: {self._invoice_id}, Order ID: {self._order.get_order_id()}, Total Amount: ${self._final_total}"
+
+
+# Test Cases
+print("Test Case: EBook Operations")
+ebook = EBook("Food", "Ahmed Alblooshi", "2023-01-05", "Life", 15.50)
+ebook.set_price(14.99)
+ebook.set_genre("Cooking")
+print(ebook)
+
+print("Test Case: Customer Account")
+customer = Customer("Rashed", "RashedAhmed@gmail.com", "0501122345", "sheikh road", True)
+print(customer)
+print(customer.create_account())
+print(customer.purchase_ebook(ebook))
+
+print("Test Case: Add/Modify/Remove Customer Account")
+
+# Adding a new customer
+customer = Customer("Rashed", "RashedAhmed@gmail.com", "0501122345", "Sheikh Road", True)
+print("Customer added:", customer)
+
+# Modifying customer details
+customer.set_phone_number("0554329988")  # Update phone number
+customer.set_address("Dubai St")  # Update address
+print("Customer details after modification:", customer)
+
+# Removing customer 
+del customer
+print("Customer removed.")
+
+
+print("Test Case: Shopping Cart")
+cart = ShoppingCart(444, "2024-06-18")
+cart.add_item(ebook)
+ebook2 = EBook("Furniture", "Meera Ahmed", "2023-05-20", "Home", 18.50)
+cart.add_item(ebook2)
+print(cart)
+cart.remove_item(ebook)
+print(cart)
+
+print("Test Case: Order with Discount")
+discount = Discount(554, "Loyalty", 10, date(2024, 11, 1), date(2024, 11, 30))
+order = Order(554, "2024-11-01")
+order.add_ebook(ebook)
+order.add_ebook(ebook2)
+if discount.validate_discount():
+    print("Discount applied! Total after discount:", discount.apply_discount(order))
+
+print("Test Case: Invoice Generation")
+invoice = Invoice(554, order)
+print(invoice.generate_invoice())
+print(invoice)
