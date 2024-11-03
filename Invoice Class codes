@@ -1,0 +1,64 @@
+class Invoice:
+    """ Class representing an invoice in the system """
+
+    def __init__(self, invoice_id, order):
+        self._invoice_id = invoice_id  # ID of the invoice
+        self._order = order  # invoice for the order
+        self._itemized_prices = [ebook.get_price() for ebook in order.get_ebooks()]  # Prices of each eBook in the order
+        self._vat = 0.05  # VAT rate 8%
+        self._final_total = self.calculate_vat() + order.get_total_amount()  # Final total with VAT
+
+    # Setters and getters
+
+    def set_invoice_id(self, invoice_id):
+        self._invoice_id = invoice_id  # Setter for invoice ID
+
+    def get_invoice_id(self):
+        return self._invoice_id  # Getter for invoice ID
+
+    def set_order(self, order):
+        self._order = order  # Setter for order
+
+    def get_order(self):
+        return self._order  # Getter for order
+
+    def calculate_vat(self):
+        """Calculates the VAT amount based on the orders total amount"""
+        return self._order.get_total_amount() * self._vat
+
+    def generate_invoice(self):
+        """creates the detailed invoice with all the information"""
+        invoice_details = f"Invoice ID: {self._invoice_id}\nOrder ID: {self._order.get_order_id()}\nDate: {self._order.get_date()}\n"
+        invoice_details += f"Items:\n"
+        for ebook in self._order.get_ebooks():
+            invoice_details += f"- {ebook.get_title()} (${ebook.get_price()})\n"
+        invoice_details += f"Subtotal: ${self._order.get_total_amount():.2f}\n"
+        invoice_details += f"VAT (8%): ${self.calculate_vat():.2f}\n"
+        invoice_details += f"Total Amount: ${self._final_total:.2f}\n"
+        return invoice_details
+
+    def __str__(self):
+        """Returning a string representation of the Invoice"""
+        return f"Invoice ID: {self._invoice_id}, Order ID: {self._order.get_order_id()}, Total Amount: ${self._final_total}"
+
+# Creating an instance of Order to generate an invoice
+order = Order(444, "2024-11-01")
+ebook1 = EBook("Food", "Ahmed Alblooshi", "2022-01-05", "Cooking", 14.99)
+ebook2 = EBook("Furniture", "Meera AHmed", "2023-05-20", "Home", 18.50)
+order.add_ebook(ebook1)
+order.add_ebook(ebook2)
+
+# Creating objects and an instance of Invoice for the order
+invoice = Invoice(554, order)
+
+# Printing invoice details
+print("Invoice ID:", invoice.get_invoice_id())
+print("Order ID:", invoice.get_order().get_order_id())
+print("Order Date:", invoice.get_order().get_date())
+print("Invoice Total (with VAT):", invoice._final_total)
+
+# creating and printing the full invoice details
+print("\nFull Invoice Details:\n", invoice.generate_invoice())
+
+# Printing string representation of the Invoice
+print(invoice)
