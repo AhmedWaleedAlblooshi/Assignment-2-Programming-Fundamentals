@@ -4,7 +4,7 @@ class Order:
     def __init__(self, order_id, date):
         self._order_id = order_id  # ID of the order
         self._date = date  # Date of the order
-        self._ebooks = []  # List of eBooks in the order
+        self._ebooks = []  # List of EBook objects in the order
         self._total_amount = 0.0  # Total amount for the order
         self._status = "Pending"  # Status of the order
 
@@ -29,32 +29,33 @@ class Order:
         return self._status  # Getter for status
 
     def add_ebook(self, ebook):
-        """ Adds an EBook to the order """
+        """Adds an EBook object to the order and updates total amount"""
         self._ebooks.append(ebook)
         self._total_amount += ebook.get_price()
 
     def get_total_amount(self):
-        """ Returns the total amount of the order """
+        """Returns the total amount of the order"""
         return self._total_amount
 
     def get_ebooks(self):
-        """ Returns a list of the EBook titles in the order """
-        return [ebook.get_title() for ebook in self._ebooks]
+        """Returns the list of EBook objects in the order"""
+        return self._ebooks
 
     def generate_invoice(self):
-        """ creates a basic invoice for the order """
+        """Generates a basic invoice for the order"""
         invoice_details = f"Order ID: {self._order_id}\nDate: {self._date}\nTotal Amount: ${self._total_amount}\nStatus: {self._status}\nItems:\n"
         for ebook in self._ebooks:
             invoice_details += f"- {ebook.get_title()} (${ebook.get_price()})\n"
         return invoice_details
 
     def complete_order(self):
-        """ Tells if the order is completed """
+        """Marks the order as completed"""
         self._status = "Completed"
 
     def __str__(self):
-        """ Returning a string representation of the Order """
+        """Returning a string representation of the Order"""
         return f"Order ID: {self._order_id}, Date: {self._date}, Total Amount: ${self._total_amount}, Status: {self._status}"
+
 
 # Creating objects and an instance of the Order class
 order = Order(2024, "2024-11-01")
