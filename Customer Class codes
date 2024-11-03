@@ -1,0 +1,77 @@
+class Customer:
+    """ Class representing a customer in the system """
+
+    def __init__(self, name, email, phone_number, address, loyalty_status):
+        self._name = name  # Name of the customer
+        self._email = email  # Email of the customer
+        self._phone_number = phone_number  # Phone number of the customer
+        self._address = address  # Address of the customer
+        self._loyalty_status = loyalty_status  # Loyalty status of the customer
+
+    # Setters and getters
+
+    def set_name(self, name):
+        self._name = name  # Setter for name
+
+    def get_name(self):
+        return self._name  # Getter for name
+
+    def set_email(self, email):
+        self._email = email  # Setter for email
+
+    def get_email(self):
+        return self._email  # Getter for email
+
+    def set_phone_number(self, phone_number):
+        self._phone_number = phone_number  # Setter for phone number
+
+    def get_phone_number(self):
+        return self._phone_number  # Getter for phone number
+
+    def set_address(self, address):
+        self._address = address  # Setter for address
+
+    def get_address(self):
+        return self._address  # Getter for address
+
+    def set_loyalty_status(self, loyalty_status):
+        self._loyalty_status = loyalty_status  # Setter for loyalty status
+
+    def get_loyalty_status(self):
+        return self._loyalty_status  # Getter for loyalty status
+
+    def create_account(self):
+        """ for account creation """
+        return f"Account created for {self._name}."
+
+    def purchase_ebook(self, ebook):
+        """ for purchasing an eBook."""
+        return f"{self._name} purchased the eBook '{ebook.get_title()}'."
+
+    def __str__(self):
+        """ for returning a string representation of the Customer """
+        return f"Customer: {self._name}, Email: {self._email}, Loyalty Status: {self._loyalty_status}"
+
+# Creating an object and instance of the Customer class
+customer = Customer("Rashed", "RashedAhmed@gmail.com", "0501122345", "sheikh road", True)
+
+# Using setter to update details
+customer.set_phone_number("0554329988")  # Updating the phone number
+customer.set_address("dubai st")  # Updating the address
+
+# Printing details using the getter methods
+print("Name:", customer.get_name())
+print("Email:", customer.get_email())
+print("Phone Number:", customer.get_phone_number())
+print("Address:", customer.get_address())
+print("Loyalty Status:", customer.get_loyalty_status())
+
+# Creating an instance of EBook to demonstrate purchase_ebook method
+ebook = EBook("Food", "Ahmed Alblooshi", "2022-01-05", "Cooking", 14.99)
+
+# Printing customer actions
+print(customer.create_account())
+print(customer.purchase_ebook(ebook))
+
+# Printing string representation of the Customer
+print(customer)
