@@ -1,0 +1,82 @@
+class ShoppingCart:
+    """ Class representing a shopping cart in the system """
+
+    def __init__(self, cart_id, creation_date):
+        self._cart_id = cart_id  # ID of the shopping cart
+        self._items = []  # List of EBooks in the cart
+        self._total_quantity = 0  # Total number of Ebooks in the cart
+        self._total_price = 0.0  # Total price of Ebooks in the cart
+        self._creation_date = creation_date  # Creation date of cart
+
+    # Setters and getters
+
+    def set_cart_id(self, cart_id):
+        self._cart_id = cart_id  # Setter for cart ID
+
+    def get_cart_id(self):
+        return self._cart_id  # Getter for cart ID
+
+    def set_creation_date(self, creation_date):
+        self._creation_date = creation_date  # Setter for creation date
+
+    def get_creation_date(self):
+        return self._creation_date  # Getter for creation date
+
+    def add_item(self, ebook):
+        """ Adds an EBook to the shopping cart """
+        self._items.append(ebook)
+        self._total_quantity += 1
+        self._total_price += ebook.get_price()
+
+    def remove_item(self, ebook):
+        """ Removes an EBook from the shopping cart if there is any """
+        if ebook in self._items:
+            self._items.remove(ebook)
+            self._total_quantity -= 1
+            self._total_price -= ebook.get_price()
+
+    def get_total_quantity(self):
+        """ Returns the total number of EBooks in the cart """
+        return self._total_quantity
+
+    def get_total_price(self):
+        """ Returns the total price of EBooks in the cart """
+        return self._total_price
+
+    def get_items(self):
+        """ Returns the list of EBooks in the cart """
+        return [ebook.get_title() for ebook in self._items]
+
+    def __str__(self):
+        """ Returning a string representation of the ShoppingCart """
+        return f"ShoppingCart ID: {self._cart_id}, Total Quantity: {self._total_quantity}, Total Price: ${self._total_price}"
+
+# Creating objects and instance of the ShoppingCart class
+cart = ShoppingCart(444, "2024-06-18")
+
+# Creating instances of EBook to add to the cart
+ebook1 = EBook("Food", "Ahmed Alblooshi", "2022-01-05", "Cooking", 14.99)
+ebook2 = EBook("Furniture", "Meera Ahmed", "2023-05-20", "Home", 18.50)
+
+# Adding EBooks to the cart
+cart.add_item(ebook1)
+cart.add_item(ebook2)
+
+# Printing the details using getter methods
+print("Cart ID:", cart.get_cart_id())
+print("Creation Date:", cart.get_creation_date())
+print("Total Quantity:", cart.get_total_quantity())
+print("Total Price:", cart.get_total_price())
+print("Items in Cart:", cart.get_items())
+
+# Removing an item from the cart to try
+cart.remove_item(ebook1)
+
+# Printing updated details
+print("\nAfter removing an item:")
+print("Total Quantity:", cart.get_total_quantity())
+print("Total Price:", cart.get_total_price())
+print("Items in Cart:", cart.get_items())
+
+# Printing string representation of the ShoppingCart
+print(cart)
