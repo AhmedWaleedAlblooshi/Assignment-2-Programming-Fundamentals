@@ -1,0 +1,85 @@
+class Order:
+    """ Class representing an order in the system """
+
+    def __init__(self, order_id, date):
+        self._order_id = order_id  # ID of the order
+        self._date = date  # Date of the order
+        self._ebooks = []  # List of eBooks in the order
+        self._total_amount = 0.0  # Total amount for the order
+        self._status = "Pending"  # Status of the order
+
+    # Setters and getters
+
+    def set_order_id(self, order_id):
+        self._order_id = order_id  # Setter for order ID
+
+    def get_order_id(self):
+        return self._order_id  # Getter for order ID
+
+    def set_date(self, date):
+        self._date = date  # Setter for date
+
+    def get_date(self):
+        return self._date  # Getter for date
+
+    def set_status(self, status):
+        self._status = status  # Setter for status
+
+    def get_status(self):
+        return self._status  # Getter for status
+
+    def add_ebook(self, ebook):
+        """ Adds an EBook to the order """
+        self._ebooks.append(ebook)
+        self._total_amount += ebook.get_price()
+
+    def get_total_amount(self):
+        """ Returns the total amount of the order """
+        return self._total_amount
+
+    def get_ebooks(self):
+        """ Returns a list of the EBook titles in the order """
+        return [ebook.get_title() for ebook in self._ebooks]
+
+    def generate_invoice(self):
+        """ creates a basic invoice for the order """
+        invoice_details = f"Order ID: {self._order_id}\nDate: {self._date}\nTotal Amount: ${self._total_amount}\nStatus: {self._status}\nItems:\n"
+        for ebook in self._ebooks:
+            invoice_details += f"- {ebook.get_title()} (${ebook.get_price()})\n"
+        return invoice_details
+
+    def complete_order(self):
+        """ Tells if the order is completed """
+        self._status = "Completed"
+
+    def __str__(self):
+        """ Returning a string representation of the Order """
+        return f"Order ID: {self._order_id}, Date: {self._date}, Total Amount: ${self._total_amount}, Status: {self._status}"
+
+# Creating objects and an instance of the Order class
+order = Order(2024, "2024-11-01")
+
+# Creating instances of EBook to add to the order
+ebook1 = EBook("Food", "Ahmed Alblooshi", "2022-01-05", "Cooking", 14.99)
+ebook2 = EBook("Furniture", "Meera Ahmed", "2023-05-20", "Home", 18.50)
+
+# Adding eBooks to the order
+order.add_ebook(ebook1)
+order.add_ebook(ebook2)
+
+# Printing details using getter methods
+print("Order ID:", order.get_order_id())
+print("Date:", order.get_date())
+print("Status:", order.get_status())
+print("Total Amount:", order.get_total_amount())
+print("EBooks in Order:", order.get_ebooks())
+
+# creating and printing the invoice
+print("\nInvoice Details:\n", order.generate_invoice())
+
+# Completing the order
+order.complete_order()
+print("Order Status after completion:", order.get_status())
+
+# Printing string representation of the Order
+print(order)
